@@ -9,7 +9,7 @@ import datetime
 import yfinance as yf
 import SingleStockLogReward as logr
 from dateutil.relativedelta import relativedelta
-import curl_cffi
+from curl_cffi import requests
 
 st.title('Sit723 Thesis Demo')
 
