@@ -4,5 +4,4 @@ matplotlib == 3.9.2
 pandas == 2.2.3
 torch == 2.6.0
 yfinance == 0.2.54
-dateutil == 2.8.2
 gym == 1.0.0
