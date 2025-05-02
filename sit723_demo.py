@@ -9,6 +9,7 @@ import datetime
 import yfinance as yf
 import SingleStockLogReward as logr
 from dateutil.relativedelta import relativedelta
+import curl_cffi
 
 st.title('Sit723 Thesis Demo')
 
@@ -37,7 +38,8 @@ min_end = start + relativedelta(months=3)
 end = st.date_input('Select end date',value =datetime.date(2025,1,1),
                     min_value=min_end)
 
-v = yf.download(mapper[options], start, end, multi_level_index=False)
+session = requests.Session(impersonate="chrome")
+v = yf.download(mapper[options], start, end, multi_level_index=False, session = session)
 def calc_rsi(x, n=14):
     x = x.copy()
     diff = x.Close.diff()
