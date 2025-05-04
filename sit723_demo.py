@@ -9,20 +9,9 @@ import datetime
 import yfinance as yf
 import SingleStockLogReward as logr
 from dateutil.relativedelta import relativedelta
-from curl_cffi import requests as curl_requests
-from requests.cookies import RequestsCookieJar
+from curl_cffi import requests
 
-curl_sess = curl_requests.Session(impersonate="chrome")
-
-curl_jar = curl_sess.cookies.jar
-
-req_jar = RequestsCookieJar()
-for c in curl_jar:
-    req_jar.set(c.name, c.value, domain=c.domain, path=c.path)
-
-sess = curl_requests.Session()             
-sess.cookies = req_jar                     
-sess.headers.update(curl_sess.headers) 
+sess = requests.Session(impersonate="chrome")
 
 
 st.title('Sit723 Thesis Demo')
