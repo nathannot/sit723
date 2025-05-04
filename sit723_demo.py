@@ -9,16 +9,22 @@ import datetime
 import yfinance as yf
 import SingleStockLogReward as logr
 from dateutil.relativedelta import relativedelta
-import requests
+from curl_cffi import requests as curl_requests
+from requests.cookies import RequestsCookieJar
 
-session = requests.Session()
-session.headers.update({
-    "User-Agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/133.0.0.0 Safari/537.36"
-    )
-})
+curl_sess = curl_requests.Session(impersonate="chrome")
+
+curl_jar = curl_sess.cookies.jar
+
+req_jar = RequestsCookieJar()
+for c in curl_jar:
+    req_jar.set(c.name, c.value, domain=c.domain, path=c.path)
+
+sess = curl_requests.Session()             
+sess.cookies = req_jar                     
+sess.headers.update(curl_sess.headers) 
+
+
 st.title('Sit723 Thesis Demo')
 
 st.write('This app is a demo of the best algorithm based on Apple Stock')
@@ -46,7 +52,7 @@ min_end = start + relativedelta(months=3)
 end = st.date_input('Select end date',value =datetime.date(2025,1,1),
                     min_value=min_end)
 
-v = yf.download(mapper[options], start, end, multi_level_index=False,session=session)
+v = yf.download(mapper[options], start, end, multi_level_index=False,session=sess)
 def calc_rsi(x, n=14):
     x = x.copy()
     diff = x.Close.diff()
