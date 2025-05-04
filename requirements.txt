@@ -3,6 +3,7 @@ numpy == 1.26.4
 matplotlib == 3.9.2
 pandas == 2.2.3
 torch == 2.6.0
-yfinance == 0.2.54
 gymnasium == 1.0.0
 curl_cffi == 0.10.0
+yfinance == 0.2.54
+git+https://github.com/irgb/yfinance.git@4bc7eb174f14c4c668fd2bf94b865717b4ea7#egg=yfinance
