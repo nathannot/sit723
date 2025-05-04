@@ -42,7 +42,7 @@ tk = yf.Ticker(mapper[options])
 try:
     tk._fetch_ticker_tz(debug_mode=False, timeout=10)
 except Exception as tz_err:
-    st.warning(f"Warning: could not fetch timezone (proceeding anyway): {tz_err}")
+    st.warning(f"Warning: could not fetch timezone: {tz_err}")
 
 
 v = tk.history(
