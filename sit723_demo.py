@@ -44,13 +44,13 @@ try:
 except Exception as tz_err:
     st.warning(f"Warning: could not fetch timezone (proceeding anyway): {tz_err}")
 
-try:
-    v = tk.history(
-        start=start,
-        end=end,
-        multi_level_index=False,
-        progress=False
-    )
+
+v = tk.history(
+    start=start,
+    end=end,
+    multi_level_index=False,
+    progress=False
+)
 #v = yf.download(mapper[options], start, end, multi_level_index=False, session = session)
 def calc_rsi(x, n=14):
     x = x.copy()
