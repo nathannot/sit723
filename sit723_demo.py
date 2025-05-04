@@ -37,21 +37,7 @@ min_end = start + relativedelta(months=3)
 end = st.date_input('Select end date',value =datetime.date(2025,1,1),
                     min_value=min_end)
 
-tk = yf.Ticker(mapper[options])
-
-try:
-    tk._fetch_ticker_tz(debug_mode=False, timeout=10)
-except Exception as tz_err:
-    st.warning(f"Warning: could not fetch timezone: {tz_err}")
-
-
-v = tk.history(
-    start=start,
-    end=end,
-    multi_level_index=False,
-    progress=False
-)
-#v = yf.download(mapper[options], start, end, multi_level_index=False, session = session)
+v = yf.download(mapper[options], start, end, multi_level_index=False)
 def calc_rsi(x, n=14):
     x = x.copy()
     diff = x.Close.diff()
