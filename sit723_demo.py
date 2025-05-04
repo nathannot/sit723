@@ -1,3 +1,5 @@
+import yfinance.data as yf_data
+
 yf_data.YfData.user_agent_headers = {
     "accept": "*/*",
     "accept-language": "en-US,en;q=0.9",
