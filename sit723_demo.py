@@ -1,23 +1,3 @@
-import yfinance.data as yf_data
-
-yf_data.YfData.user_agent_headers = {
-    "accept": "*/*",
-    "accept-language": "en-US,en;q=0.9",
-    "origin": "https://finance.yahoo.com",
-    "referer": "https://finance.yahoo.com/quote/AAPL",
-    "sec-ch-ua": '"Not(A:Brand";v="99", "Chromium";v="133", "Google Chrome";v="133"',
-    "sec-ch-ua-mobile": "?0",
-    "sec-ch-ua-platform": '"Windows"',
-    "sec-fetch-dest": "empty",
-    "sec-fetch-mode": "cors",
-    "sec-fetch-site": "same-site",
-    "user-agent": (
-        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
-        "AppleWebKit/537.36 (KHTML, like Gecko) "
-        "Chrome/133.0.0.0 Safari/537.36"
-    ),
-}
-
 import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
@@ -29,7 +9,16 @@ import datetime
 import yfinance as yf
 import SingleStockLogReward as logr
 from dateutil.relativedelta import relativedelta
+import requests
 
+session = requests.Session()
+session.headers.update({
+    "User-Agent": (
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/133.0.0.0 Safari/537.36"
+    )
+})
 st.title('Sit723 Thesis Demo')
 
 st.write('This app is a demo of the best algorithm based on Apple Stock')
@@ -57,7 +46,7 @@ min_end = start + relativedelta(months=3)
 end = st.date_input('Select end date',value =datetime.date(2025,1,1),
                     min_value=min_end)
 
-v = yf.download(mapper[options], start, end, multi_level_index=False)
+v = yf.download(mapper[options], start, end, multi_level_index=False,session=session)
 def calc_rsi(x, n=14):
     x = x.copy()
     diff = x.Close.diff()
